@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Cirrhosis Stage Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f78848;
+        }
+        .navbar-brand {
+            display: block;
+            margin: auto;
+            color: #f04ada;
+            font-weight: bold;
+            font-family: Helvetica, sans-serif;
+        }
+        h1 {
+            color: #780233;
+            font-family: Georgia, serif;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .card {
+            background-color: #99e889;
+            border: 3px solid #c209d6;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #702702;
+        }
+        .submit-button {
+            display: block;
+            margin: 30px auto;
+        }
+        .predict-dec {
+            text-align: center;
+            font-weight: bold;
+            color: #e30e0e;
+            font-size: 2rem;
+            font-family: Helvetica, sans-serif;
+        }
+        .copyright {
+            text-align: center;
+            color: #2d1280;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1"><h1>Liver Cirrhosis Stage Prediction</h1></span>
+    </nav>
+
+    <div class="container">
+        <form action="/predict" method="POST">
+            <div class="row">
+                <!-- Drug -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Drug Type</h5>
+                            <select name="drug" class="form-control" required>
+                                <option value="D-penicillamine">D-penicillamine</option>
+                                <option value="Placebo">Placebo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Age -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Age</h5>
+                            <input type="number" name="age" min="26" max="78" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Sex -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Sex</h5>
+                            <select name="sex" class="form-control" required>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ascites -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Ascites</h5>
+                            <select name="ascites" class="form-control" required>
+                                <option value="YES">YES</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Hepatomegaly -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Hepatomegaly</h5>
+                            <select name="hepatomegaly" class="form-control" required>
+                                <option value="YES">YES</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Spiders -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Spiders</h5>
+                            <select name="spiders" class="form-control" required>
+                                <option value="YES">YES</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Edema -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Edema</h5>
+                            <select name="edema" class="form-control" required>
+                                <option value="No edema and no diuretic therapy for edema">No edema and no diuretic therapy for edema</option>
+                                <option value="Edema present without diuretics, or edema resolved by diuretics">Edema present without diuretics, or edema resolved by diuretics</option>
+                                <option value="Edema despite diuretic therapy">Edema despite diuretic therapy</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Numeric Fields (split) -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Bilirubin</h5>
+                            <input type="number" name="bilirubin" min="0.3" max="7.3" step="0.01" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Cholesterol</h5>
+                            <input type="number" name="cholesterol" min="160.875" max="459.875" step="0.001" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Albumin</h5>
+                            <input type="number" name="albumin" min="2.45" max="4.56" step="0.01" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Copper</h5>
+                            <input type="number" name="copper" min="4.0" max="175.0" step="0.1" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Alkaline Phosphatase</h5>
+                            <input type="number" name="alk_phos" min="289.0" max="2745.0" step="0.1" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">SGOT</h5>
+                            <input type="number" name="sgot" min="26.35" max="202.88" step="0.01" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tryglycerides</h5>
+                            <input type="number" name="tryglycerides" min="45.875" max="176.875" step="0.001" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Platelets</h5>
+                            <input type="number" name="platelets" min="62.0" max="503.75" step="0.01" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Prothrombin</h5>
+                            <input type="number" name="prothrombin" min="9.0" max="12.75" step="0.01" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary btn-lg submit-button">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="predict-dec">{{ prediction_text }}</div>
+        {% endif %}
+
+        <p class="copyright">@2025 Liver Disease Prediction | All Rights Reserved</p>
+    </div>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
